@@ -1,0 +1,56 @@
+== Building e ==
+
+The easiest way to build is to use the supplied scripts (example shows debug build):
+
+cd external
+sudo ./get-packages-ubuntu.sh bakefile
+./get_externals_linux.sh
+./build_externals_linux.sh debug
+cd ..
+cd src
+make DEBUG=1
+./e.debug
+
+== Packages ==
+
+If you choose to install packages manually, these are the Ubuntu packages required before building:
+
+- build-essential
+- libgtk2.0-dev
+- libglib2.0-dev
+- libatk1.0-dev
+- libcurl-dev
+
+Packages required by WebKit:
+- bakefile (ubuntu: http://www.bakefile.org/wiki/Debian)
+- libxml-2.0 (ubuntu: libxml2-dev)
+- libxslt (ubuntu: libxslt1-dev)
+- sqlite3 (ubuntu: libsqlite3-dev)
+- icu (ubuntu: libicu-dev)
+- libjpeg (ubuntu: libjpeg62-dev)
+- bison
+- flex
+- gperf
+
+== Bundling e into tar.gz, rpm or deb packages
+
+1. Build e (release build) as described above
+2. Checkout ebundles tree as described in http://code.google.com/p/ebundles/source/checkout
+3. Export svn working tree into ./external/stuff (Bundles, Support and Themes directories must be present)
+4. To create tar.gz archive run make -C src tar
+5. To create RPM package run sudo make -C src rpm 
+6. To create Deb package run make -C src deb
+
+== Windows Files ==
+
+These files do not compile, probably due to Windows dependencies:
+
+- CygwinDlg.cpp - not needed, all uses are commented out
+- ExceptionHandler.cpp - never used?
+- ExceptionAttacher.cpp - never used?
+- GetWinVer.cpp - only used by ExceptionHandler
+- IEHtmlWin.cpp - never used, Linux uses WebKitHtmlWnd instead
+- MiniVersion.cpp - only used by ExceptionHandler
+- ShellContextMenu.cpp - cannot be compiled, should be replaced with Gnome/KDE equivalent
+- wxactivex.cpp - only used by IEHtmlWin, cannot be compiled
+

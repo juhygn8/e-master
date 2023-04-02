@@ -1,0 +1,11 @@
+Package: e
+Version: %VERSION%-%RELEASE%
+Section: editors 
+Priority: optional
+Architecture: all
+Essential: no
+Depends: libxml2, openssl, libcurl3, libgtk2.0-0, libsqlite3-0, libxslt1.1, libjpeg62, libicu38, libcairo2, ruby
+Installed-Size: 62000
+Maintainer: Alexander Stigsen [source@e-texteditor.com]
+Provides: AlexanderStigsen
+Description: e is a fast and elegant text editor with many innovative features.

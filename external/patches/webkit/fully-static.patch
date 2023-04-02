@@ -1,0 +1,51 @@
+--- WebKit-r68833/WebKit/wx/wscript	2010-07-29 04:31:09.000000000 +0400
++++ webkit/WebKit/wx/wscript	2010-10-23 20:47:42.779000070 +0400
+@@ -98,7 +98,7 @@ def build(bld):
+     bld.env.LIBDIR = output_dir
+ 
+     obj = bld.new_task_gen(
+-        features = 'cxx cshlib implib',
++        features = 'cxx cstaticlib implib',
+         includes = ' '.join(include_paths + js_include_dirs),
+         target = 'wxwebkit',
+         defines = ['WXMAKINGDLL_WEBKIT'],
+--- WebKit-r68833/JavaScriptCore/wscript	2010-10-01 01:57:41.000000000 +0400
++++ webkit/JavaScriptCore/wscript	2010-10-23 21:59:07.018000070 +0400
+@@ -65,20 +65,4 @@ def build(bld):
+ 
+     jscore.find_sources_in_dirs(full_dirs, excludes = jscore_excludes)
+     
+-    obj = bld.new_task_gen(
+-        features = 'cxx cprogram',
+-        includes = '. .. assembler DerivedSources ForwardingHeaders ' + ' '.join(includes),
+-        source = 'jsc.cpp',
+-        target = 'jsc',
+-        uselib = 'WX ICU ' + get_config(),
+-        uselib_local = 'jscore',
+-        install_path = output_dir,
+-        )
+-        
+-    if building_on_win32:
+-        myenv = obj.env.copy()
+-        myenv.CXXFLAGS = myenv.CXXFLAGS[:]
+-        myenv.CXXFLAGS.remove('/EHsc')
+-        obj.env = myenv
+-
+     bld.install_files(os.path.join(output_dir, 'JavaScriptCore'), 'API/*.h')
+--- WebKit-r68833/wscript	2010-10-01 01:57:42.000000000 +0400
++++ webkit/wscript	2010-10-23 22:19:56.455000071 +0400
+@@ -233,7 +233,7 @@ def build(bld):  
+         cxxflags.extend(['-include', 'WebCorePrefix.h'])
+ 
+     webcore = bld.new_task_gen(
+-        features = 'cc cxx cshlib',
++        features = 'cc cxx cstaticlib',
+         includes = ' '.join(wk_includes),
+         source = ' '.join(flattenSources(webcore_sources.values())),
+         cxxflags = cxxflags,
+@@ -324,4 +324,4 @@ def build(bld):  
+     bld.add_group()
+     
+     if build_port == "wx":    
+-        bld.add_subdirs(['WebKitTools/DumpRenderTree', 'WebKitTools/wx/browser', 'WebKit/wx/bindings/python'])
++        bld.add_subdirs(['WebKit/wx/bindings/python', ])
